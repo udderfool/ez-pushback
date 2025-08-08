@@ -30,11 +30,11 @@ void intake() {
 
 void outtake() {
   if (!is_first_jammed) {
-    firststage.move(-60);
-    firstTarget = -60;
+    firststage.move(45);
+    firstTarget = 45;
     ignorejam = false;
   }
-  secondstage.move(80);
+  secondstage.move(100);
 
   if (!is_second_jammed) {
     thirdstage.move(-60);
@@ -46,8 +46,8 @@ void outtake() {
 
 void scorehigh() {
   if (!is_first_jammed) {
-    firststage.move(-30);
-    firstTarget = -30;
+    firststage.move(30);
+    firstTarget = 30;
     ignorejam = false;
   }
   secondstage.move(127);
@@ -63,8 +63,8 @@ void scorehigh() {
 
 void scoremiddle() {
   if (!is_first_jammed) {
-    firststage.move(-30);
-    firstTarget = -30;
+    firststage.move(30);
+    firstTarget = 30;
     ignorejam = false;
   }
   secondstage.move(127);
