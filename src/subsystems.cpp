@@ -30,8 +30,8 @@ void intake() {
 
 void outtake() {
   if (!is_first_jammed) {
-    firststage.move(45);
-    firstTarget = 45;
+    firststage.move(-15);
+    firstTarget = -15;
     ignorejam = false;
   }
   secondstage.move(100);
@@ -46,8 +46,8 @@ void outtake() {
 
 void scorehigh() {
   if (!is_first_jammed) {
-    firststage.move(30);
-    firstTarget = 30;
+    firststage.move(-15);
+    firstTarget = -15;
     ignorejam = false;
   }
   secondstage.move(127);
@@ -58,13 +58,14 @@ void scorehigh() {
     ignorejam = false;
   }
   fourthstage.move(-127);
-  redirect.set(true);
+  aligner.set(true);
+  scraper.set(false);
 }
 
 void scoremiddle() {
   if (!is_first_jammed) {
-    firststage.move(30);
-    firstTarget = 30;
+    firststage.move(-15);
+    firstTarget = -15;
     ignorejam = false;
   }
   secondstage.move(127);
@@ -76,7 +77,15 @@ void scoremiddle() {
   }
 
   fourthstage.move(15);
-  redirect.set(true);
+}
+
+void matchload() {
+  firststage.move(-127);
+  secondstage.move(-127);
+  thirdstage.move(127);
+  fourthstage.move(0);
+  aligner.set(false);
+  scraper.set(true);
 }
 
 void stopIntake(bool reset) {
@@ -95,6 +104,9 @@ void stopIntake(bool reset) {
 
   fourthstage.move(0);
   if (reset) redirect.set(false);
+
+  aligner.set(false);
+  scraper.set(false);
 }
 
 void opcontrolintake() {
@@ -106,6 +118,8 @@ void opcontrolintake() {
     scoremiddle();
   else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
     scorehigh();
+  else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT))
+    matchload();
   else {
     stopIntake(true);
   }
@@ -182,15 +196,15 @@ void antijamSecondTask() {
 }
 
 void colorSet(Colors color, lv_obj_t* object) {
-	// Set on screen elements to the corresponding color
-	lv_color32_t color_use = theme_accent;
-	if(color == RED)
-		color_use = red;
-	else if(color == BLUE)
-		color_use = blue;
-	lv_obj_set_style_bg_color(object, color_use, LV_PART_MAIN);
+  // Set on screen elements to the corresponding color
+  lv_color32_t color_use = theme_accent;
+  if (color == RED)
+    color_use = red;
+  else if (color == BLUE)
+    color_use = blue;
+  lv_obj_set_style_bg_color(object, color_use, LV_PART_MAIN);
 }
 
 void setAlliance(Colors alliance) {
-	allianceColor = alliance;
+  allianceColor = alliance;
 }
