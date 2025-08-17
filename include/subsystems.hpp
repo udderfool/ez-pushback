@@ -25,6 +25,7 @@ void stopIntake(bool reset);
 void opcontrolintake();
 
 void matchload();
+void wrongcolor();
 
 void antijamFirstTask();
 void antijamSecondTask();

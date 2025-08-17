@@ -30,15 +30,15 @@ void intake() {
 
 void outtake() {
   if (!is_first_jammed) {
-    firststage.move(-15);
-    firstTarget = -15;
+    firststage.move(40);
+    firstTarget = 40;
     ignorejam = false;
   }
-  secondstage.move(100);
+  secondstage.move(127);
 
   if (!is_second_jammed) {
-    thirdstage.move(-60);
-    secondTarget = -60;
+    thirdstage.move(-80);
+    secondTarget = -80;
     ignorejam = true;
   }
   fourthstage.move(0);
@@ -46,8 +46,8 @@ void outtake() {
 
 void scorehigh() {
   if (!is_first_jammed) {
-    firststage.move(-15);
-    firstTarget = -15;
+    firststage.move(40);
+    firstTarget = 40;
     ignorejam = false;
   }
   secondstage.move(127);
@@ -64,8 +64,8 @@ void scorehigh() {
 
 void scoremiddle() {
   if (!is_first_jammed) {
-    firststage.move(-15);
-    firstTarget = -15;
+    firststage.move(40);
+    firstTarget = 40;
     ignorejam = false;
   }
   secondstage.move(127);
@@ -76,7 +76,7 @@ void scoremiddle() {
     ignorejam = false;
   }
 
-  fourthstage.move(15);
+  fourthstage.move(35);
 }
 
 void matchload() {
@@ -88,6 +88,14 @@ void matchload() {
   scraper.set(true);
 }
 
+void wrongcolor() {
+  firststage.move(-127);
+  secondstage.move(127);
+  thirdstage.move(-127);
+  fourthstage.move(0);
+  aligner.set(false);
+  scraper.set(true);
+}
 void stopIntake(bool reset) {
   if (!is_first_jammed) {
     firststage.move(0);
@@ -120,6 +128,8 @@ void opcontrolintake() {
     scorehigh();
   else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT))
     matchload();
+  else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y))
+    wrongcolor();
   else {
     stopIntake(true);
   }

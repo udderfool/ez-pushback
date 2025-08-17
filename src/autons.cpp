@@ -22,7 +22,7 @@ void wait() {
 }
 
 void delay(int millis) {
-			pros::delay(millis);
+  pros::delay(millis);
 }
 
 void drive(okapi::QLength distance, int speed, bool slew) {
@@ -84,84 +84,81 @@ void move_forward(int in) {
 }
 
 void highschool_right_half_awp() {
-//drive to aim for blocks
-  drive(23, 80, true);
-wait();
-//turn to blocks
-intake();
-  turn(270, turn_speed);
-wait();
-//score on low goal
-  drive(26, 35, true);
-delay(4000);
-outtake();
-delay(1000);
-intake();
-//go to high goal
-  drive(-47.5, 90, true);
-wait();
-stopIntake(false);
-  turn(-45, turn_speed);
-wait();
-//score on high
-  redirect.set(true);
-delay(250);
-  drive(16, 50, true);
-delay(500);
-scorehigh();
+  // drive to aim for blocks
+  drive(26, 80, true);
   wait();
-
+  // turn to blocks
+  intake();
+  turn(-90, turn_speed);
+  wait();
+  // score on low goal
+  drive(25, 35, true);
+  wait();
+  outtake();
+  delay(4000);
+  intake();
+  // go to high goal
+  drive(-46, 90, true);
+  wait();
+  matchload();
+  turn(-45, turn_speed);
+  wait();
+  // get matchload blocks
+  drive(-17, 65, true);
+  delay(2000);
+  // score on high
+  scorehigh();
+  drive(25, 60, true);
+  wait();
 }
 
 void highschool_left_half_awp() {
-//drive to aim for blocks
-  drive(24.5, 80, true);
-wait();
-//turn to blocks
-intake();
-  turn(-270, turn_speed);
-wait();
-//score on low goal
-  drive(23.5, 35, true);
-  redirect.set(true);
-delay(4000);
-scoremiddle();
-delay(1000);
-intake();
-//go to high goal
-  drive(-45.5, 90, true);
-wait();
-stopIntake(false);
-  turn(45, turn_speed);
-wait();
-//score on high
-  redirect.set(true);
-delay(250);
-  drive(16, 50, true);
-delay(500);
-scorehigh();
+  // drive to aim for blocks
+  drive(26.5, 80, true);
   wait();
-
+  // turn to blocks
+  intake();
+  turn(90, turn_speed);
+  wait();
+  // score on mid goal
+  drive(24.25, 35, true);
+  wait();
+  scoremiddle();
+  delay(4000);
+  intake();
+  // go to high goal
+  drive(-44.5, 90, true);
+  wait();
+  matchload();
+  turn(45, turn_speed);
+  wait();
+  // get matchload blocks
+  drive(-17, 65, true);
+  delay(2000);
+  // score on high
+  scorehigh();
+  drive(25, 60, true);
+  wait();
 }
 
-  /* Drive and collect cluster of blocks
-  driveSet(28_in, 40, true);
+/* Drive and collect cluster of blocks
+driveSet(28_in, 40, true);
 intake();
-    chassis.pid_wait();
-  
-  driveSet(-17_in,80, true);
-    chassis.pid_wait();
+  chassis.pid_wait();
 
-  turnSet(90_deg, TURN_SPEED);
-    chassis.pid_wait();
-  
-  driveSet(29_in, DRIVE_SPEED, true);
-    chassis.pid_wait();
-  
-  turnSet(345_deg, TURN_SPEED);
-    chassis.pid_wait();
+driveSet(-17_in,80, true);
+  chassis.pid_wait();
+
+turnSet(90_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+driveSet(29_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+turnSet(345_deg, TURN_SPEED);
+  chassis.pid_wait();
 stopIntake();
-  driveSet(11_in, 60, true);
-    chassis.pid_wait();
+driveSet(11_in, 60, true);
+  chassis.pid_wait();
 scorehigh();
 */
