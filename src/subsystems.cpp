@@ -6,118 +6,102 @@
 
 bool is_second_jammed = false;
 bool is_first_jammed = false;
+
 bool ignorejam = false;
+bool scoreflag = false;
+
+bool scoretimerflag = false;
+
+int scoretimer = 0;
 int firstTarget = 0;
 int secondTarget = 0;
 
 Colors allianceColor = NEUTRAL;
-
+// intake buttons
 void intake() {
-  if (!is_first_jammed) {
-    firststage.move(-127);
-    firstTarget = -127;
-    ignorejam = false;
-  }
+  firststage_antijam.set_motors(-127);
+
   secondstage.move(-127);
 
-  if (!is_second_jammed) {
-    thirdstage.move(127);
-    secondTarget = 127;
-    ignorejam = false;
-  }
+  thirdstage_antijam.set_motors(127);
+
   fourthstage.move(0);
 }
 
 void outtake() {
-  if (!is_first_jammed) {
-    firststage.move(40);
-    firstTarget = 40;
-    ignorejam = false;
-  }
+  firststage_antijam.set_motors(40);
+
   secondstage.move(127);
 
-  if (!is_second_jammed) {
-    thirdstage.move(-80);
-    secondTarget = -80;
-    ignorejam = true;
-  }
+  thirdstage_antijam.set_motors(-80);
+
   fourthstage.move(0);
 }
 
 void scorehigh() {
-  if (!is_first_jammed) {
-    firststage.move(40);
-    firstTarget = 40;
-    ignorejam = false;
-  }
+  firststage_antijam.set_motors(40);
+
   secondstage.move(127);
 
-  if (!is_second_jammed) {
-    thirdstage.move(127);
-    secondTarget = 127;
-    ignorejam = false;
-  }
+  thirdstage_antijam.set_motors(127);
+
   fourthstage.move(-127);
   aligner.set(true);
   scraper.set(false);
 }
 
 void scoremiddle() {
-  if (!is_first_jammed) {
-    firststage.move(40);
-    firstTarget = 40;
-    ignorejam = false;
-  }
+  firststage_antijam.set_motors(40);
+
   secondstage.move(127);
 
-  if (!is_second_jammed) {
-    thirdstage.move(127);
-    secondTarget = 127;
-    ignorejam = false;
-  }
+  thirdstage_antijam.set_motors(127);
 
   fourthstage.move(35);
 }
 
+// matchload things
 void matchload() {
-  firststage.move(-127);
+  firststage_antijam.set_motors(-127);
+
   secondstage.move(-127);
-  thirdstage.move(127);
+
+  thirdstage_antijam.set_motors(127);
+
   fourthstage.move(0);
   aligner.set(false);
   scraper.set(true);
 }
 
 void wrongcolor() {
-  firststage.move(-127);
+  firststage_antijam.set_motors(-127);
+
   secondstage.move(127);
-  thirdstage.move(-127);
+
+  thirdstage_antijam.set_motors(-127);
+
   fourthstage.move(0);
   aligner.set(false);
   scraper.set(true);
 }
 void stopIntake(bool reset) {
-  if (!is_first_jammed) {
-    firststage.move(0);
-    firstTarget = 0;
-    ignorejam = false;
-  }
+  firststage_antijam.set_motors(0);
+
   secondstage.move(0);
 
-  if (!is_second_jammed) {
-    thirdstage.move(0);
-    secondTarget = 0;
-    ignorejam = false;
-  }
+  thirdstage_antijam.set_motors(0);
 
   fourthstage.move(0);
   if (reset) redirect.set(false);
 
-  aligner.set(false);
   scraper.set(false);
 }
-
+// controls
 void opcontrolintake() {
+  // descore things
+  scythe.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_X));
+  aligner.button_toggle(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP));
+
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2))
     intake();
   else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
@@ -133,75 +117,23 @@ void opcontrolintake() {
   else {
     stopIntake(true);
   }
-}
-
-void antijamFirstTask() {
-  int jam_counter = 0;
-  const int outtake_time = 150;
-  const int wait_time = 200;
-  while (true) {
-    // Run intake full power in opposite direction for outtake_time ms when jammed, then
-    // set intake back to normal
-    if (is_first_jammed) {
-      firststage.move(127 * util::sgn(firstTarget));
-      jam_counter += util::DELAY_TIME;
-      if (jam_counter > outtake_time) {
-        is_first_jammed = false;
-        jam_counter = 0;
-        firststage.move(firstTarget);
-      }
-    }
-
-    // Detect a jam if velocity is 0 for wait_time ms
-    else if (!ignorejam && abs(firstTarget) >= 20 && firststage.get_actual_velocity() <= 80) {
-      jam_counter += util::DELAY_TIME;
-      if (jam_counter > wait_time) {
-        jam_counter = 0;
-        is_first_jammed = true;
-      }
-    }
-
-    // Reset jam_counter when button is released
-    if (firstTarget <= 20) {
-      jam_counter = 0;
-    }
-
-    pros::delay(util::DELAY_TIME);
+  // turny off aligner after score
+  if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+    scoreflag = true;
+    scoretimer = 0;
   }
-}
 
-void antijamSecondTask() {
-  int jam_counter = 0;
-  const int outtake_time = 150;
-  const int wait_time = 200;
-  while (true) {
-    // Run intake full power in opposite direction for outtake_time ms when jammed, then
-    // set intake back to normal
-    if (is_second_jammed) {
-      thirdstage.move(-127 * util::sgn(secondTarget));
-      jam_counter += util::DELAY_TIME;
-      if (jam_counter > outtake_time) {
-        is_second_jammed = false;
-        jam_counter = 0;
-        thirdstage.move(secondTarget);
-      }
+  if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) and scoreflag) {
+    scoreflag = false;
+    scoretimerflag = true;
+  }
+  if (scoretimerflag) {
+    scoretimer += 10;
+    if (scoretimer > 1000) {
+      aligner.set(false);
+      scoretimerflag = false;
+      scoretimer = 0;
     }
-
-    // Detect a jam if velocity is 0 for wait_time ms
-    else if (!ignorejam && abs(secondTarget) >= 20 && thirdstage.get_actual_velocity() <= 80) {
-      jam_counter += util::DELAY_TIME;
-      if (jam_counter > wait_time) {
-        jam_counter = 0;
-        is_second_jammed = true;
-      }
-    }
-
-    // Reset jam_counter when button is released
-    if (secondTarget <= 20) {
-      jam_counter = 0;
-    }
-
-    pros::delay(util::DELAY_TIME);
   }
 }
 

@@ -5,7 +5,6 @@
 #include "subsystems.hpp"
 #include "ui.hpp"
 
-
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -50,8 +49,7 @@ void initialize() {
   uiInit();
   pros::Task AngleCheckTask(angleCheckTask, "angle checker");
   pros::Task MotorUpdateTask(motorUpdateTask, "motor info updater");
-  pros::Task AntijamFirstTask(antijamFirstTask);
-  pros::Task AntijamSecondTask(antijamSecondTask);
+
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
 }
 
@@ -165,7 +163,8 @@ void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(pros::E_MOTOR_BRAKE_HOLD);
 
-  while (true) {
+  while (true) { 
+
     // Gives you some extras to make EZ-Template ezier
     ez_template_extras();
 
@@ -174,10 +173,12 @@ void opcontrol() {
                                // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
                                // chassis.opcontrol_arcade_flipped(ez::SPLIT);    // Flipped split arcade
                                // chassis.opcontrol_arcade_flipped(ez::SINGLE);   // Flipped single arcade
+
     opcontrolintake();
     // . . .
     // Put more user control code here!
     // . . .
+    
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
