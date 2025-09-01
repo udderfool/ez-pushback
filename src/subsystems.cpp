@@ -24,8 +24,6 @@ void intake() {
   secondstage.move(-127);
 
   thirdstage_antijam.set_motors(127);
-
-  fourthstage.move(0);
 }
 
 void outtake() {
@@ -34,30 +32,24 @@ void outtake() {
   secondstage.move(127);
 
   thirdstage_antijam.set_motors(-80);
-
-  fourthstage.move(0);
 }
 
 void scorehigh() {
-  firststage_antijam.set_motors(40);
+  firststage_antijam.set_motors(110);
 
   secondstage.move(127);
 
   thirdstage_antijam.set_motors(127);
-
-  fourthstage.move(-127);
   aligner.set(true);
   scraper.set(false);
 }
 
 void scoremiddle() {
-  firststage_antijam.set_motors(40);
+  firststage_antijam.set_motors(-40);
 
   secondstage.move(127);
 
   thirdstage_antijam.set_motors(127);
-
-  fourthstage.move(35);
 }
 
 // matchload things
@@ -67,8 +59,6 @@ void matchload() {
   secondstage.move(-127);
 
   thirdstage_antijam.set_motors(127);
-
-  fourthstage.move(0);
   aligner.set(false);
   scraper.set(true);
 }
@@ -79,8 +69,6 @@ void wrongcolor() {
   secondstage.move(127);
 
   thirdstage_antijam.set_motors(-127);
-
-  fourthstage.move(0);
   aligner.set(false);
   scraper.set(true);
 }
@@ -90,8 +78,6 @@ void stopIntake(bool reset) {
   secondstage.move(0);
 
   thirdstage_antijam.set_motors(0);
-
-  fourthstage.move(0);
   if (reset) redirect.set(false);
 
   scraper.set(false);

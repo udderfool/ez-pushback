@@ -85,30 +85,33 @@ void move_forward(int in) {
 
 void highschool_right_half_awp() {
   // drive to aim for blocks
-  drive(26, 80, true);
+  drive(26.5, 80, true);
   wait();
   // turn to blocks
   intake();
   turn(-90, turn_speed);
   wait();
   // score on low goal
-  drive(25, 35, true);
+  drive(24.5, 35, true);
   wait();
   outtake();
   delay(4000);
   intake();
   // go to high goal
-  drive(-46, 90, true);
+  drive(-46.5, drive_speed, true);
+  chassis.pid_wait_until(-30);
+  chassis.pid_speed_max_set(40);
   wait();
   matchload();
   turn(-45, turn_speed);
   wait();
   // get matchload blocks
-  drive(-17, 65, true);
-  delay(2000);
+  drive(-19, 127, true);
+  delay(1000);
   // score on high
+  drive(27, 60, true);
+  chassis.pid_wait_until(4);
   scorehigh();
-  drive(25, 60, true);
   wait();
 }
 
@@ -121,13 +124,13 @@ void highschool_left_half_awp() {
   turn(90, turn_speed);
   wait();
   // score on mid goal
-  drive(24.25, 35, true);
+  drive(25, 35, true);
   wait();
   scoremiddle();
   delay(4000);
   intake();
   // go to high goal
-  drive(-44.5, 90, true);
+  drive(-44, 90, true);
   wait();
   matchload();
   turn(45, turn_speed);
@@ -136,8 +139,9 @@ void highschool_left_half_awp() {
   drive(-17, 65, true);
   delay(2000);
   // score on high
-  scorehigh();
   drive(25, 60, true);
+  chassis.pid_wait_until(5);
+  scorehigh();
   wait();
 }
 

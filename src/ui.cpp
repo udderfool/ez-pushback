@@ -87,8 +87,10 @@ vector<MotorDisp> chassisMotors = {MotorDisp(&chassis.left_motors[0], "front lef
 								   MotorDisp(&chassis.right_motors[3], "back right", lv_color_lighten(violet, 120), 50)};
 
 vector<MotorDisp> intakeMotors = {
-	MotorDisp(&firststage, "first stage", lv_color_lighten(blue, 80), 50), MotorDisp(&secondstage, "second stage", lv_color_lighten(blue, 80), 50),
-	MotorDisp(&thirdstage, "third stage", lv_color_lighten(blue, 80), 50), MotorDisp(&fourthstage, "fourth stage", lv_color_lighten(blue, 80), 50)};
+	//MotorDisp(&firststage., "first stage", lv_color_lighten(blue, 80), 50), 
+	//MotorDisp(&firststage[1], "first stage", lv_color_lighten(blue, 80), 50), 
+	MotorDisp(&secondstage, "second stage", lv_color_lighten(blue, 80), 50),
+	MotorDisp(&thirdstage, "third stage", lv_color_lighten(blue, 80), 50)};
 
 MotorTab chassisTabObj = MotorTab("chassis", theme_color, &chassis.leftPID.error, 24, chassisMotors, move_forward, false,
 								  PidTunerValues(0.25, 0.05, 0.25, &chassis.fwd_rev_drivePID), chassisTab);

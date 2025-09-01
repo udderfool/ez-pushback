@@ -9,10 +9,9 @@
 
 extern Drive chassis;
 
-inline pros::Motor firststage (18);
+inline pros::MotorGroup firststage ({18,-10});
 inline pros::Motor secondstage (19);
 inline pros::Motor thirdstage (13);
-inline pros::Motor fourthstage (10);
 inline ez::Piston aligner('A');
 inline ez::Piston scraper('B');
 inline ez::Piston redirect('Z');
