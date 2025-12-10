@@ -40,9 +40,14 @@ void initialize() {
   // AUTO SELECTOR
   auton_sel.selector_populate(
       {
-          {highschool_left_half_awp, "HS left awp", "", pink},
-          {highschool_right_half_awp, "HS right awp", "", pink},
-
+          {match_awp_right, "Right AWP", "", pink},
+          {match_awp_left, "Left AWP", "", pink},
+          {elims_right, "Right Elims", "", pink},
+          {elims_left, "Left Elims", "", pink},
+          {skills_15, "Skills", "", pink},
+          {highschool_right_half_awp, "right HS", "", pink},
+          {highschool_left_half_awp, "left HS", "", pink},
+          {move_1_inch, "move forward", "", pink},
       });
   // Initialize chassis and auton selector
   chassis.initialize();
@@ -140,13 +145,6 @@ void ez_template_extras() {
     //  * use the arrow keys to navigate the constants
     if (master.get_digital_new_press(DIGITAL_X))
       chassis.pid_tuner_toggle();
-
-    // Trigger the selected autonomous routine
-    if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
-      pros::motor_brake_mode_e_t preference = chassis.drive_brake_get();
-      autonomous();
-      chassis.drive_brake_set(preference);
-    }
 
     // Allow PID Tuner to iterate
     chassis.pid_tuner_iterate();

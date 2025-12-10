@@ -6,5 +6,10 @@ extern double target_theta;
 
 void highschool_right_half_awp();
 void highschool_left_half_awp();
-
+void match_awp_right();
+void match_awp_left();
+void elims_right();
+void elims_left();
+void skills_15();
+void move_1_inch();
 void move_forward(int in);

@@ -1,9 +1,12 @@
+#include "autons.hpp"
+
 #include "EZ-Template/drive/drive.hpp"
 #include "main.h"
 #include "okapi/api/units/QAngle.hpp"
 #include "okapi/api/units/QLength.hpp"
 #include "pros/rtos.hpp"
 #include "subsystems.hpp"
+
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -83,6 +86,389 @@ void move_forward(int in) {
   drive(in, drive_speed, in > 20 ? true : false);
 }
 
+void match_awp_right() {
+  // score prepload in mid goal
+  drive(35, 80, true);
+  wait();
+  // turn to mid goal
+  outtake();
+  turn(-44.5, turn_speed);
+  wait();
+  drive(2, 80, true);
+  delay(1000);
+  // drive back to matchload
+  drive(-46.5, 90, true);
+  wait();
+  turn(0, turn_speed);
+  // matchload
+  matchload();
+  wait();
+  drive(-25, 40, true);
+  delay(1700);
+  intake();
+  // score on high
+  drive(29, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(3000);
+  // go back to matchload
+  drive(-34, 40, true);
+  wrongcolor();
+  delay(4000);
+  wait();
+  matchload();
+  delay(3000);
+  // drive to mid goal
+  intake();
+  drive(13, 80, true);
+  wait();
+  turn(-45, turn_speed);
+  wait();
+  drive(45, 80, true);
+  // score 2 in mid goal
+  outtake();
+  delay(2000);
+  wait();
+  intake();
+  // drive back to score
+  drive(-46, 70, true);
+  wait();
+  turn(0, turn_speed);
+  wait();
+  // score score score
+  scorehigh();
+  drive(18.5, 70, true);
+  wait();
+  delay(2000);
+  // go and park
+  intake();
+  aligner.set(false);
+  drive(-10, 127, true);
+  wait();
+  turn(-135, turn_speed);
+  wait();
+  drive(25, 127, true);
+  wait();
+  turn(-95, turn_speed);
+  wait();
+  chassis.drive_set(127, 127);
+  delay(1200);
+  chassis.drive_set(0, 0);
+}
+
+void match_awp_left() {
+  drive(34, 80, true);
+  wait();
+  // turn to mid goal
+  scoremiddle();
+  turn(44.5, turn_speed);
+  wait();
+  drive(1, 80, true);
+  delay(1000);
+  // drive back to matchload
+  drive(-44.5, 80, true);
+  wait();
+  turn(0, turn_speed);
+  // matchload
+  matchload();
+  wait();
+  drive(-25, 40, true);
+  delay(1700);
+  intake();
+  // score on high
+  drive(29, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(3000);
+  // go back to matchload
+  drive(-34, 40, true);
+  wrongcolor();
+  delay(4000);
+  wait();
+  matchload();
+  delay(3000);
+  // drive to mid goal
+  intake();
+  drive(13, 80, true);
+  wait();
+  turn(45, turn_speed);
+  wait();
+  drive(46, 80, true);
+  // score 2 in mid goal
+  scoremiddle();
+  delay(2000);
+  wait();
+  intake();
+  // drive back to score
+  drive(-46, 70, true);
+  wait();
+  turn(0, turn_speed);
+  wait();
+  // score score score
+  scorehigh();
+  drive(18.5, 60, true);
+  wait();
+  delay(2000);
+  // go and park
+  intake();
+  aligner.set(false);
+  drive(-10, 127, true);
+  wait();
+  turn(135, turn_speed);
+  wait();
+  drive(25, 127, true);
+  wait();
+  turn(95, turn_speed);
+  wait();
+  chassis.drive_set(127, 127);
+  delay(1200);
+  chassis.drive_set(0, 0);
+}
+
+void elims_right() {
+  // score prepload in mid goal
+  drive(35, 80, true);
+  wait();
+  // turn to mid goal
+  outtake();
+  turn(-44.5, turn_speed);
+  wait();
+  drive(2, 80, true);
+  delay(1000);
+  // drive back to matchload
+  drive(-46.5, 90, true);
+  wait();
+  turn(0, turn_speed);
+  // matchload
+  matchload();
+  wait();
+  drive(-25, 40, true);
+  delay(1700);
+  intake();
+  // score on high
+  drive(29, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(3000);
+  // go back to matchload
+  drive(-34, 40, true);
+  wrongcolor();
+  delay(4000);
+  wait();
+  matchload();
+  delay(3000);
+  // drive to mid goal
+  intake();
+  drive(13, 80, true);
+  wait();
+  turn(-45, turn_speed);
+  wait();
+  drive(45, 80, true);
+  // score 2 in mid goal
+  outtake();
+  delay(2000);
+  wait();
+  intake();
+  // drive back to score
+  drive(-46, 70, true);
+  wait();
+  turn(0, turn_speed);
+  wait();
+  // score score score
+  scorehigh();
+  drive(18.5, 70, true);
+  wait();
+  delay(2000);
+  // push blocks to center
+  intake();
+  aligner.set(false);
+  drive(-10, 127, true);
+  wait();
+  turn(-90, turn_speed);
+  wait();
+  drive(-12, 127, true);
+  wait();
+  turn(-180, turn_speed);
+  wait();
+  scythe.set(true);
+  drive(-33, 50, true);
+  wait();
+}
+
+void elims_left() {
+  drive(34, 80, true);
+  wait();
+  // turn to mid goal
+  scoremiddle();
+  turn(44.5, turn_speed);
+  wait();
+  drive(1, 80, true);
+  delay(1000);
+  // drive back to matchload
+  drive(-44.5, 80, true);
+  wait();
+  turn(0, turn_speed);
+  // matchload
+  matchload();
+  wait();
+  drive(-25, 40, true);
+  delay(1700);
+  intake();
+  // score on high
+  drive(29, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(3000);
+  // go back to matchload
+  drive(-34, 40, true);
+  wrongcolor();
+  delay(4000);
+  wait();
+  matchload();
+  delay(3000);
+  // drive to mid goal
+  intake();
+  drive(13, 80, true);
+  wait();
+  turn(45, turn_speed);
+  wait();
+  drive(46, 80, true);
+  // score 2 in mid goal
+  scoremiddle();
+  delay(2000);
+  wait();
+  intake();
+  // drive back to score
+  drive(-46, 70, true);
+  wait();
+  turn(0, turn_speed);
+  wait();
+  // score score score
+  scorehigh();
+  drive(18.5, 60, true);
+  wait();
+  delay(2000);
+  // push blocks to center
+  intake();
+  aligner.set(false);
+  drive(-10, 127, true);
+  wait();
+  turn(-90, turn_speed);
+  wait();
+  drive(12, 127, true);
+  wait();
+  turn(0, turn_speed);
+  wait();
+  scythe.set(true);
+  drive(-15, 50, true);
+  wait();
+}
+
+void skills_15() {
+  // drive to long goal
+  drive(39, 70, true);
+  wait();
+  turn(-90, turn_speed);
+  wait();
+  // score preload in long goal
+  drive(18, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(2000);
+  // go back to matchload
+  drive(-34, 40, true);
+  // clear matchload tube and score 6 in long goal
+  matchload();
+  delay(3000);
+  drive(32, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(3000);
+  drive(-34, 40, true);
+  matchload();
+  delay(3000);
+  drive(32, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(3000);
+  // grab 2 blue blocks
+  drive(-18, 70, true);
+  intake();
+  wait();
+  turn(-180, turn_speed);
+  wait();
+  drive(-15.5, 50, true);
+  delay(3000);
+  // and score in middle goal
+  drive(14, 50, true);
+  wait();
+  turn(-135, turn_speed);
+  wait();
+  drive(46, 70, true);
+  chassis.pid_wait_until(10);
+  outtake();
+  delay(3000);
+  intake();
+  // drive to other 2 blue blocks and score middle goal again
+  drive(-46, 70, true);
+  wait();
+  turn(0, turn_speed);
+  wait();
+  drive(-108, 80, true);
+  delay(3000);
+  drive(105.5, 80, true);
+  wait();
+  turn(-135, turn_speed);
+  wait();
+  drive(46, 70, true);
+  chassis.pid_wait_until(10);
+  outtake();
+  delay(3000);
+  intake();
+  // go to matchload tube and clear it
+  drive(-46, 70, true);
+  wait();
+  turn(0, turn_speed);
+  wait();
+  drive(-93, 80, true);
+  wait();
+  turn(-90, turn_speed);
+  wait();
+  drive(16, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(2000);
+  drive(-34, 40, true);
+  matchload();
+  delay(3000);
+  // score 6 in long goal
+  drive(34, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(3000);
+  drive(-34, 40, true);
+  matchload();
+  delay(3000);
+  drive(34, 60, true);
+  chassis.pid_wait_until(4);
+  scorehigh();
+  delay(3000);
+  // drive to park in red park zone
+  intake();
+  aligner.set(false);
+  drive(-10, 127, true);
+  wait();
+  turn(45, turn_speed);
+  wait();
+  drive(26, 127, true);
+  wait();
+  turn(8, turn_speed);
+  wait();
+  chassis.drive_set(127, 127);
+  delay(1000);
+  chassis.drive_set(0, 0);
+}
+
 void highschool_right_half_awp() {
   // drive to aim for blocks
   drive(26.5, 80, true);
@@ -145,6 +531,10 @@ void highschool_left_half_awp() {
   wait();
 }
 
+void move_1_inch() {
+  drive(1, 127, true);
+  wait();
+}
 /* Drive and collect cluster of blocks
 driveSet(28_in, 40, true);
 intake();

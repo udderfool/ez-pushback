@@ -31,7 +31,7 @@ void outtake() {
 
   secondstage.move(127);
 
-  thirdstage_antijam.set_motors(-80);
+  thirdstage_antijam.set_motors(-127);
 }
 
 void scorehigh() {
@@ -45,7 +45,7 @@ void scorehigh() {
 }
 
 void scoremiddle() {
-  firststage_antijam.set_motors(-40);
+  firststage_antijam.set_motors(-30);
 
   secondstage.move(127);
 
@@ -103,7 +103,7 @@ void opcontrolintake() {
   else {
     stopIntake(true);
   }
-  // turny off aligner after score
+  // turn off aligner after score
   if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     scoreflag = true;
     scoretimer = 0;
