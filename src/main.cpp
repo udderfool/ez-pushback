@@ -1,14 +1,9 @@
 #include "main.h"
-
+//15"
 #include "autons.hpp"
 #include "pros/motors.h"
 #include "subsystems.hpp"
 #include "ui.hpp"
-
-/////
-// For installation, upgrading, documentations, and tutorials, check out our website!
-// https://ez-robotics.github.io/EZ-Template/
-/////
 
 // Chassis constructor
 ez::Drive chassis(
@@ -20,9 +15,6 @@ ez::Drive chassis(
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     507);  // Wheel RPM = cartridge * (motor gear / wheel gear)
 
-/*
- * Runs initialization code. This occurs as soon as the program is started.
- */
 void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();

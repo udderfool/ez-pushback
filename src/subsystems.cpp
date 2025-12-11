@@ -35,7 +35,7 @@ void outtake() {
 }
 
 void scorehigh() {
-  firststage_antijam.set_motors(110);
+  firststage.move(127);
 
   secondstage.move(127);
 
@@ -74,7 +74,7 @@ void wrongcolor() {
 }
 void stopIntake(bool reset) {
   firststage_antijam.set_motors(0);
-
+  firststage.move(0);
   secondstage.move(0);
 
   thirdstage_antijam.set_motors(0);
