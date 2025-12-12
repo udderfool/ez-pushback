@@ -23,7 +23,7 @@ void initialize() {
 
   // Configure your chassis controls
   chassis.opcontrol_curve_buttons_toggle(false);  // Enables modifying the controller curve with buttons on the joysticks
-  chassis.opcontrol_drive_activebrake_set(0.0);   // Sets the active brake kP. We recommend ~2.  0 will disable.
+  chassis.opcontrol_drive_activebrake_set(2.);   // Sets the active brake kP. We recommend ~2.  0 will disable.
   chassis.opcontrol_curve_default_set(0.0, 0.0);  // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
 
   // Set the drive to your own constants from autons.cpp!
@@ -33,9 +33,7 @@ void initialize() {
   auton_sel.selector_populate(
       {
           {match_awp_right, "Right AWP", "", pink},
-          {match_awp_left, "Left AWP", "", pink},
           {elims_right, "Right Elims", "", pink},
-          {elims_left, "Left Elims", "", pink},
           {skills_15, "Skills", "", pink},
           {highschool_right_half_awp, "right HS", "", pink},
           {highschool_left_half_awp, "left HS", "", pink},
