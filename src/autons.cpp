@@ -117,8 +117,10 @@ void match_awp_right() {
   drive(-29.5, 40, true);
   wrongcolor();
   delay(4000);
+  drive(5,70, true);
   wait();
   matchload();
+  drive(-5, 50, true);
   delay(3000);
   // drive to mid goal
   intake();
@@ -126,7 +128,7 @@ void match_awp_right() {
   wait();
   turn(-45, turn_speed);
   wait();
-  drive(45, 80, true);
+  drive(44.5, 80, true);
   // score 2 in mid goal
   outtake();
   delay(2000);
@@ -154,7 +156,7 @@ void match_awp_right() {
   turn(-95, turn_speed);
   wait();
   chassis.drive_set(127, 127);
-  delay(1100);
+  delay(1000);
   chassis.drive_set(0, 0);
 }
 
@@ -198,7 +200,7 @@ void elims_right() {
   wait();
   turn(-45, turn_speed);
   wait();
-  drive(45, 80, true);
+  drive(44.5, 80, true);
   // score 2 in mid goal
   outtake();
   delay(2000);
@@ -226,13 +228,14 @@ void elims_right() {
   turn(-180, turn_speed);
   wait();
   scythe.set(true);
-  drive(-33, 50, true);
+  drive(-31, 50, true);
   wait();
 }
 
 void skills_15() {
   // drive to long goal
-  drive(33, 70, true);
+  drive(32, 70, true);
+  aligner.set(true);
   wait();
   turn(-90, turn_speed);
   wait();
@@ -241,8 +244,9 @@ void skills_15() {
   chassis.pid_wait_until(4);
   scorehigh();
   delay(2000);
+  stopIntake(true);
   // go back to matchload
-  drive(-34, 40, true);
+  drive(-29.5, 40, true);
   // clear matchload tube and score 6 in long goal
   matchload();
   delay(3000);
@@ -253,12 +257,14 @@ void skills_15() {
   drive(-34, 40, true);
   matchload();
   delay(3000);
-  drive(32, 60, true);
+  drive(28, 60, true);
   chassis.pid_wait_until(4);
   scorehigh();
   delay(3000);
+  stopIntake(true);
+  chassis.pid_wait_quick();
   // grab 2 blue blocks
-  drive(-18, 70, true);
+  drive(-17, 70, true);
   intake();
   wait();
   turn(-180, turn_speed);
@@ -266,17 +272,17 @@ void skills_15() {
   drive(-15.5, 50, true);
   delay(3000);
   // and score in middle goal
-  drive(14, 50, true);
+  drive(13, 50, true);
   wait();
   turn(-135, turn_speed);
   wait();
-  drive(46, 70, true);
+  drive(46.5, 70, true);
   chassis.pid_wait_until(10);
   outtake();
   delay(3000);
   intake();
   // drive to other 2 blue blocks and score middle goal again
-  drive(-46, 70, true);
+  drive(-45, 70, true);
   wait();
   turn(0, turn_speed);
   wait();
@@ -286,13 +292,13 @@ void skills_15() {
   wait();
   turn(-135, turn_speed);
   wait();
-  drive(46, 70, true);
+  drive(45, 70, true);
   chassis.pid_wait_until(10);
   outtake();
   delay(3000);
   intake();
-  // go to matchload tube and clear it
-  drive(-46, 70, true);
+  // go to score high
+  drive(-45, 70, true);
   wait();
   turn(0, turn_speed);
   wait();
@@ -300,15 +306,16 @@ void skills_15() {
   wait();
   turn(-90, turn_speed);
   wait();
-  drive(16, 60, true);
+  drive(15, 60, true);
   chassis.pid_wait_until(4);
   scorehigh();
   delay(2000);
+  //drive to matchload
   drive(-34, 40, true);
   matchload();
   delay(3000);
   // score 6 in long goal
-  drive(34, 60, true);
+  drive(33, 60, true);
   chassis.pid_wait_until(4);
   scorehigh();
   delay(3000);

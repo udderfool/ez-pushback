@@ -35,7 +35,7 @@ void outtake() {
 }
 
 void scorehigh() {
-  firststage.move(127);
+  firststage_antijam.set_motors(127);
 
   secondstage.move(127);
 
